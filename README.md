@@ -22,7 +22,12 @@ constexpr char* city = "2643743"; //London
 The APIFetcher class creates a String from the credentials and performs a GET request on OpenWeatherAPI. On success it returns
 a pointer to a Model object representing the deserialized JSON of the API´s response.
 
-The Frame class assigns areas to the display. A frame is constructed with an upper left corner(x,y), width and length.
+The DisplayWrapper class initializes the Display, maybe there has to be an adjustement for other Displays at this line in 
+``` 
+display.h
+using DisplayType = GxEPD2_BW<GxEPD2_213_B73, GxEPD2_213_B73::HEIGHT>;
+``` 
+The Frame class assigns areas on the display. A frame is constructed with an upper left corner(x,y), width and length.
 
 ```Cpp-ObjDump
 Display::Frame above(0, 0, 248, 64);
@@ -42,12 +47,10 @@ The IComponent interface implements 2 methods:
   
   For now there are 2 Components:
   
-  * Table
-    Is implemented as 2D vector ``` std::vector<std::vector<Cell>> cells; ``` of type Cell, which is just a point x,y and a String       ``` message ```.
-    
-  
-  * Barometer
- 
+  * Table: organizing static and dynamic Strings
+  * Barometer: hourly barchart 
+
+The class OverlayHandler manages a vector of Components.
  
 
 
